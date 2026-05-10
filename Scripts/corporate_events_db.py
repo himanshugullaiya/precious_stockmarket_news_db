@@ -29,8 +29,9 @@ def create_table():
     CREATE TABLE IF NOT EXISTS corporate_events (
 
         entry_id serial primary key,
+        company_name varchar(200),
+        symbol varchar(50),
         an_bm char(2) CHECK (an_bm IN ('an', 'bm')),
-        symbol varchar(30),
         news_date date not null,
         news text
 
@@ -183,17 +184,19 @@ def read_bm_file(filepath, date):
 def insert_into_db(parsed_data):
 
     for row in parsed_data:
+        print(row['company_name'])
 
         cur.execute("""
 
         INSERT INTO corporate_events
-        (an_bm, symbol, news_date, news)
+        (an_bm, company_name, symbol, news_date, news)
 
-        VALUES (%s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s)
 
         """, (
 
             row['an_bm'],
+            row['company_name'],
             row['symbol'],
             row['date'],
             row['news']
