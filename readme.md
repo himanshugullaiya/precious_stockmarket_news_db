@@ -1,4 +1,4 @@
-# Corporate Events Dashboard
+# NSE Corporate Events Intelligence Dashboard
 
 ![Dashboard](Working%20Images/Image%201.png)
 
@@ -6,40 +6,47 @@
 
 ---
 
-# About The Project
+# The Core Insight
 
-Corporate Events Dashboard is a Python + PostgreSQL + Streamlit based market intelligence system built to identify meaningful corporate developments before major price moves happen in the market.
+> **Financial media reports what companies tell journalists. This system captures what companies tell SEBI.**
 
-Instead of relying on broad generalized financial news, this system focuses directly on company-level exchange filings and corporate announcements.
+Exchange filings are the primary source. Media coverage is the echo.
 
-The goal is to detect:
-- order wins
-- strategic tie-ups
-- joint ventures
-- mergers
-- government developments
-- capacity expansion
-- investor activity
-- institutional signals
-- business expansion
+By the time a stock move gets covered in financial news, the setup is already priced in. The real edge lies in tracking corporate announcements directly at the source — order wins, joint ventures, capacity expansions, institutional activity — before the narrative reaches the broader market.
 
-before the broader market fully reacts.
+This is the gap this project was built to fill.
 
 ---
 
-# Core Idea
+# About The Project
 
-> Important price moves are often preceded by subtle but meaningful corporate developments.
+NSE Corporate Events Intelligence Dashboard is a Python + PostgreSQL + Streamlit based market intelligence system that parses NSE/SEBI exchange filings directly and makes them searchable, filterable, and actionable.
 
-This project creates a searchable event intelligence layer over NSE corporate announcements.
+The system detects early-stage corporate developments including:
 
-In the future, LLMs will be integrated to:
-- summarize filings
-- rank importance of events
-- remove low-value noise
-- identify high-impact developments automatically
+- Order wins
+- Strategic tie-ups and joint ventures
+- Mergers and acquisitions
+- Government contract developments
+- Capacity expansion announcements
+- Investor and institutional activity
+- Business expansion signals
 
-This creates a significantly more market-relevant information engine compared to traditional global news feeds which often have weak direct market correlation.
+The goal is to identify meaningful corporate catalysts **before the broader market fully reacts** — and use them to assess whether a price move has a real narrative backing it, or whether it is likely to fade.
+
+---
+
+# Why This Matters for Trading
+
+A breakout without a narrative is noise. A breakout with a narrative is a setup worth studying.
+
+This system serves two purposes:
+
+**1. Pre-trade probability filter**
+Before entering a setup, check whether there is a corporate filing backing the move. If volumes are building and there is a SEBI-disclosed event behind it — order win, JV, capacity addition — the probability that the move sustains increases significantly. Buyers are not absorbing liquidity blindly; there is a reason.
+
+**2. Past move study engine**
+Understanding how major stock moves develop requires studying the full arc: filing → narrative build → price action execution. This system makes that research fast and structured — search any company, filter by event type or date, and reconstruct exactly how the catalyst unfolded.
 
 ---
 
@@ -47,21 +54,18 @@ This creates a significantly more market-relevant information engine compared to
 
 ## Backend
 - Automated NSE corporate event parsing
-- ZIP download & extraction pipeline
+- ZIP download and extraction pipeline
 - PostgreSQL database storage
 - Duplicate removal system
 - Historical event collection
 
----
-
 ## Frontend
-- Company name search
-- Symbol search
+- Company name and symbol search
 - Keyword filtering
-- Date filtering
+- Date range filtering
 - Event type filtering
-- Copy symbols directly to clipboard
-- CSV export support
+- One-click symbol copy to clipboard
+- CSV export for further analysis
 
 ---
 
@@ -83,8 +87,6 @@ This creates a significantly more market-relevant information engine compared to
 pip install -r requirements.txt
 ```
 
----
-
 ## Start frontend
 
 ```bash
@@ -93,19 +95,19 @@ streamlit run Frontend.py
 
 ---
 
-# Future Improvements
+# Roadmap
 
-- LLM-based event scoring
-- Event summarization
-- Sentiment analysis
-- Real-time updates
-- TradingView integration
-- Event backtesting
-- Sector-wise clustering
-- Catalyst ranking engine
+- LLM-based event scoring and importance ranking
+- Automatic summarization of filing content
+- Noise filtering — remove low-value routine disclosures
+- Real-time filing updates
+- TradingView chart integration
+- Event backtesting — map filings to subsequent price moves
+- Sector-wise event clustering
+- Catalyst ranking engine by historical price impact
 
 ---
 
 # Author
 
-Built as a personal market intelligence and event discovery system for trading research and catalyst analysis.
+Built out of a genuine gap identified after years of studying Indian equity markets. Financial news covers what companies want the public to know. Exchange filings reveal what companies are required to disclose. This system works at that second layer.
