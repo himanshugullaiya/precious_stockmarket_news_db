@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import psycopg2
 
 
@@ -184,12 +184,17 @@ def read_bm_file(filepath, date):
 def insert_into_db(parsed_data):
 
     for row in parsed_data:
-        print(row['company_name'])
 
         cur.execute("""
 
         INSERT INTO corporate_events
-        (an_bm, company_name, symbol, news_date, news)
+        (
+            an_bm,
+            company_name,
+            symbol,
+            news_date,
+            news
+        )
 
         VALUES (%s, %s, %s, %s, %s)
 
@@ -222,23 +227,32 @@ def get_max_date():
     return max_date
 
 
-#...........INITIAL FULL LOAD...........#
+#...........LOAD DATA...........#
 
-def initial_load():
+def load_data(starting_date, ending_date):
 
-    print('Started Initial Load')
+    print(
+        f'Loading Data From {starting_date} To {ending_date}'
+    )
 
-    all_folders = os.listdir(files_folder)
+    current_date = starting_date
 
-    for folder in all_folders:
-
-        folder_path = os.path.join(
-            files_folder,
-            folder
+    while current_date <= ending_date:
+        
+        folder_name = current_date.strftime(
+            "%Y-%m-%d"
         )
 
-        if not os.path.isdir(folder_path):
+        folder_path = files_folder + '/' + folder_name
+
+        print(folder_path)
+        if not os.path.exists(folder_path):
+
+            current_date += timedelta(days=1)
+
             continue
+
+        print(f'Checking : {folder_name}')
 
         for filename in os.listdir(folder_path):
 
@@ -261,8 +275,6 @@ def initial_load():
                 continue
 
             date_string = filename[2:10]
-
-            print(date_string, '\n')
 
             file_date = datetime.strptime(
                 date_string,
@@ -291,6 +303,8 @@ def initial_load():
 
                 print(f'Inserted BM : {filename}')
 
+        current_date += timedelta(days=1)
+
 
 #...........RUN...........#
 
@@ -298,17 +312,26 @@ create_table()
 
 max_date = get_max_date()
 
+current_date = datetime.now().date()
+
+
 if max_date is None:
 
     print('Fresh Database Detected')
 
-    initial_load()
+    starting_date = date(2026, 1, 1)
 
 else:
 
-    print(
-        f'Database Already Has Data Till : {max_date}'
-    )
+    print(f'Database Has Data Till : {max_date}')
+
+    starting_date = max_date + timedelta(days=1)
+
+
+load_data(
+    starting_date,
+    current_date
+)
 
 
 #...........CLOSE...........#

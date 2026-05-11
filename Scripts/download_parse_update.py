@@ -30,7 +30,7 @@ def download_zips(starting_date, ending_date):
     
     current_date = starting_date
 
-    while current_date < ending_date:
+    while current_date <= ending_date:
         delta = timedelta(days = 1)
 
         if current_date.weekday() >= 5:
@@ -72,7 +72,7 @@ def parse_zips(starting_date, ending_date):
     zip_filename = f'{str(starting_date)}.zip'
     current_date = starting_date
     
-    while current_date < ending_date:
+    while current_date <= ending_date:
         if not zip_filename.endswith('.zip') or zip_filename not in all_zips:
             current_date += delta
             zip_filename = f'{str(current_date)}.zip'
@@ -112,12 +112,13 @@ def run_inception_code():
         parse_zips(starting_date, ending_date)
         
     else:
-        print('Files Present')
+        print('Files Present - Inception Not Run')
         
 def update_files():
     global zips_folder, files_folder
     new_start_date = datetime.strptime(max(os.listdir(files_folder)), "%Y-%m-%d").date() + timedelta(days = 1)
     download_zips(new_start_date, datetime.now().date())
+    parse_zips(new_start_date, datetime.now().date())
     print('Up To Date')
     
     
