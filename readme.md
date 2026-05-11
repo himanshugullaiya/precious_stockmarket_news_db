@@ -1,113 +1,52 @@
 # NSE Corporate Events Intelligence Dashboard
 
-![Dashboard](Working%20Images/Image%201.png)
-
-![Filtering](Working%20Images/Image%202.png)
-
----
-
-# The Core Insight
-
 > **Financial media reports what companies tell journalists. This system captures what companies tell SEBI.**
 
-Exchange filings are the primary source. Media coverage is the echo.
+---
 
-By the time a stock move gets covered in financial news, the setup is already priced in. The real edge lies in tracking corporate announcements directly at the source — order wins, joint ventures, capacity expansions, institutional activity — before the narrative reaches the broader market.
+## Result: JAINREC — 35% in 8 Days
 
-This is the gap this project was built to fill.
+![JAINREC Case Study — Filing flagged on 2026-04-28, stock moved 35% in 8 days](Working%20Images/Image%201.png)
+
+Shareholders meeting filing flagged on **2026-04-28**. Stock moved **35% in the following 8 days** — starting exactly from that date. The filing was visible here before the broader market reacted.
 
 ---
 
-# About The Project
+## Today's Dashboard — Live Filings
 
-NSE Corporate Events Intelligence Dashboard is a Python + PostgreSQL + Streamlit based market intelligence system that parses NSE/SEBI exchange filings directly and makes them searchable, filterable, and actionable.
+![Today's Results — 46 filings including mergers, order wins, credit ratings](Working%20Images/Image%202.png)
 
-The system detects early-stage corporate developments including:
-
-- Order wins
-- Strategic tie-ups and joint ventures
-- Mergers and acquisitions
-- Government contract developments
-- Capacity expansion announcements
-- Investor and institutional activity
-- Business expansion signals
-
-The goal is to identify meaningful corporate catalysts **before the broader market fully reacts** — and use them to assess whether a price move has a real narrative backing it, or whether it is likely to fade.
+Search across all NSE filings by keyword — mergers, order wins, credit ratings, acquisitions — filtered by date and event type. **46 results on a single day.**
 
 ---
 
-# Why This Matters for Trading
+## What It Does
 
-A breakout without a narrative is noise. A breakout with a narrative is a setup worth studying.
+Parses NSE/SEBI corporate filings directly — before media covers them. Tracks order wins, JVs, mergers, acquisitions, capacity expansions, institutional activity.
 
-This system serves two purposes:
-
-**1. Pre-trade probability filter**
-Before entering a setup, check whether there is a corporate filing backing the move. If volumes are building and there is a SEBI-disclosed event behind it — order win, JV, capacity addition — the probability that the move sustains increases significantly. Buyers are not absorbing liquidity blindly; there is a reason.
-
-**2. Past move study engine**
-Understanding how major stock moves develop requires studying the full arc: filing → narrative build → price action execution. This system makes that research fast and structured — search any company, filter by event type or date, and reconstruct exactly how the catalyst unfolded.
+Two use cases: **pre-trade catalyst check** and **studying how past moves built from filing → narrative → price action.**
 
 ---
 
-# Features
+## Tech Stack
 
-## Backend
-- Automated NSE corporate event parsing
-- ZIP download and extraction pipeline
-- PostgreSQL database storage
-- Duplicate removal system
-- Historical event collection
-
-## Frontend
-- Company name and symbol search
-- Keyword filtering
-- Date range filtering
-- Event type filtering
-- One-click symbol copy to clipboard
-- CSV export for further analysis
+Python · PostgreSQL · Streamlit · Pandas · psycopg2
 
 ---
 
-# Tech Stack
-
-- Python
-- PostgreSQL
-- Streamlit
-- Pandas
-- psycopg2
-
----
-
-# Run Locally
-
-## Install dependencies
+## Run Locally
 
 ```bash
 pip install -r requirements.txt
-```
-
-## Start frontend
-
-```bash
 streamlit run Frontend.py
 ```
 
 ---
 
-# Roadmap
+## Roadmap
 
-- LLM-based event scoring and importance ranking
-- Automatic summarization of filing content
-- Noise filtering — remove low-value routine disclosures
-- Real-time filing updates
-- TradingView chart integration
-- Event backtesting — map filings to subsequent price moves
-- Sector-wise event clustering
-- Catalyst ranking engine by historical price impact
+LLM event scoring · filing summarization · noise filtering · real-time updates · TradingView integration · event backtesting
 
 ---
 
-# Author
-
-Built out of a genuine gap identified after years of studying Indian equity markets. Financial news covers what companies want the public to know. Exchange filings reveal what companies are required to disclose. This system works at that second layer.
+[GitHub](https://github.com/himanshugullaiya/precious_stockmarket_news_db)

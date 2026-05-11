@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import psycopg2
 import pyperclip
+import subprocess
 import time
 from datetime import datetime
 
@@ -12,6 +13,42 @@ st.set_page_config(
     page_title='Corporate Events Dashboard',
     layout='wide'
 )
+
+
+#...........CUSTOM CSS...........#
+
+st.markdown("""
+
+<style>
+
+h1 {
+    font-size: 2.3rem !important;
+}
+
+label {
+    font-size: 1.05rem !important;
+    font-weight: 600 !important;
+}
+
+.stTextInput input {
+    font-size: 1rem !important;
+}
+
+.stDateInput input {
+    font-size: 1rem !important;
+}
+
+.stMultiSelect div {
+    font-size: 1rem !important;
+}
+
+button {
+    font-size: 1rem !important;
+}
+
+</style>
+
+""", unsafe_allow_html=True)
 
 
 #...........DB CONNECTION...........#
@@ -98,7 +135,9 @@ with col5:
 
 #...........SECOND ROW...........#
 
-col6, col7, col8 = st.columns([5, 1, 1])
+col6, col7, col8, col9 = st.columns(
+    [4, 1, 1, 1]
+)
 
 
 with col6:
@@ -112,20 +151,30 @@ with col6:
 with col7:
 
     st.write('')
-
     st.write('')
 
-    search_button = st.button('Search')
+    search_button = st.button(
+        'Search'
+    )
 
 
 with col8:
 
     st.write('')
-
     st.write('')
 
     copy_button = st.button(
         'Copy Symbols'
+    )
+
+
+with col9:
+
+    st.write('')
+    st.write('')
+
+    update_button = st.button(
+        'Update DB'
     )
 
 
@@ -290,6 +339,35 @@ if copy_button:
 
     success_box = st.success(
         'Symbols copied to clipboard'
+    )
+
+    time.sleep(3)
+
+    success_box.empty()
+
+
+#...........UPDATE DATABASE...........#
+
+if update_button:
+
+    update_box = st.info(
+        'Updating Database...'
+    )
+
+    subprocess.run([
+        'python',
+        'download_parse_update.py'
+    ])
+
+    subprocess.run([
+        'python',
+        'corporate_events_db.py'
+    ])
+
+    update_box.empty()
+
+    success_box = st.success(
+        'Database Updated Successfully'
     )
 
     time.sleep(3)
